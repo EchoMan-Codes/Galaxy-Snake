@@ -10,7 +10,7 @@ const highScoreElement = document.querySelector("#high-score");
 const scoreElement = document.querySelector("#score");
 const timeElement = document.querySelector("#time");
 
-const blockSize = 50;
+const blockSize = 30;
 
 const cols = Math.floor(board.clientWidth / blockSize);
 const rows = Math.floor(board.clientHeight / blockSize);
@@ -51,7 +51,7 @@ document.addEventListener(
       await audioCtx.resume();
     }
   },
-  { once: true }
+  { once: true },
 );
 
 function playSound(name) {
@@ -102,7 +102,7 @@ function spawnFood() {
       y: Math.floor(Math.random() * cols),
       type: foodTypes[Math.floor(Math.random() * foodTypes.length)],
     };
-  } while (snake.some(seg => seg.x === newFood.x && seg.y === newFood.y));
+  } while (snake.some((seg) => seg.x === newFood.x && seg.y === newFood.y));
   return newFood;
 }
 
@@ -114,7 +114,7 @@ food = spawnFood();
 
 function render() {
   // clear board visuals
-  Object.values(blocks).forEach(b => {
+  Object.values(blocks).forEach((b) => {
     b.classList.remove("fill", "food", "head");
     b.innerText = "";
   });
@@ -132,18 +132,13 @@ function render() {
   if (direction === "down") head.x++;
 
   /* 🧱 WALL COLLISION */
-  if (
-    head.x < 0 ||
-    head.y < 0 ||
-    head.x >= rows ||
-    head.y >= cols
-  ) {
+  if (head.x < 0 || head.y < 0 || head.x >= rows || head.y >= cols) {
     endGame();
     return;
   }
 
   /* 🐍 SELF COLLISION */
-  if (snake.some(seg => seg.x === head.x && seg.y === head.y)) {
+  if (snake.some((seg) => seg.x === head.x && seg.y === head.y)) {
     endGame();
     return;
   }
@@ -240,9 +235,34 @@ restartButton.addEventListener("click", () => {
 /* 🎮 CONTROLS */
 /* ===================== */
 
-addEventListener("keydown", e => {
+addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft" && direction !== "right") direction = "left";
   if (e.key === "ArrowRight" && direction !== "left") direction = "right";
   if (e.key === "ArrowUp" && direction !== "down") direction = "up";
   if (e.key === "ArrowDown" && direction !== "up") direction = "down";
+});
+
+/* ===================== */
+/* 📱 MOBILE CONTROLS */
+/* ===================== */
+
+const upBtn = document.querySelector(".up");
+const downBtn = document.querySelector(".down");
+const leftBtn = document.querySelector(".left");
+const rightBtn = document.querySelector(".right");
+
+upBtn.addEventListener("click", () => {
+  if (direction !== "down") direction = "up";
+});
+
+downBtn.addEventListener("click", () => {
+  if (direction !== "up") direction = "down";
+});
+
+leftBtn.addEventListener("click", () => {
+  if (direction !== "right") direction = "left";
+});
+
+rightBtn.addEventListener("click", () => {
+  if (direction !== "left") direction = "right";
 });

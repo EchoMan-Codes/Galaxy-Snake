@@ -118,8 +118,8 @@ section .infos {
   border: 2px solid var(--border-primary-color);
   flex-grow: 1; /* Takes up all the available space */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(30px, 1fr));
 }
 
 .block {
@@ -131,12 +131,7 @@ section .infos {
 /* SNAKE DESIGN */
 /* Snake body (tube style) */
 .fill {
-  background: linear-gradient(
-    180deg,
-    #6ee7b7,
-    #34d399,
-    #059669
-  );
+  background: linear-gradient(180deg, #6ee7b7, #34d399, #059669);
   border-radius: 18px;
   box-shadow:
     inset 0 4px 6px rgba(255, 255, 255, 0.35),
@@ -150,7 +145,7 @@ section .infos {
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.6));
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
 }
 
 .modal {
@@ -175,4 +170,43 @@ section .infos {
 
 .modal .game-over {
   display: none;
+}
+
+/* ===================== */
+/* 📱 MOBILE CONTROLS */
+/* ===================== */
+
+.controls {
+  display: none; /* hidden by default */
+}
+
+@media (max-width: 768px) {
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .controls .middle {
+    display: flex;
+    gap: 40px;
+  }
+
+  .ctrl {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    backdrop-filter: blur(4px);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ctrl:active {
+    transform: scale(0.92);
+  }
 }
